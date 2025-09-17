@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Study Bot</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        button { padding: 10px 20px; margin: 10px; }
+        pre { background: #f4f4f4; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>📚 My Study Bot</h1>
+    
+    <button onclick="getSubjects()">📖 Subjects देखें</button>
+    <button onclick="getMathQuestions()">➗ Math Questions</button>
+    <button onclick="getRandomQuestion()">🎲 Random Question</button>
+    
+    <div id="result"></div>
+
+    <script>
+        async function getSubjects() {
+            const response = await fetch('http://localhost:5000/api/subjects');
+            const data = await response.json();
+            showResult(data);
+        }
+        
+        async function getMathQuestions() {
+            const response = await fetch('http://localhost:5000/api/questions/math');
+            const data = await response.json();
+            showResult(data);
+        }
+        
+        async function getRandomQuestion() {
+            const response = await fetch('http://localhost:5000/api/random');
+            const data = await response.json();
+            showResult(data);
+        }
+        
+        function showResult(data) {
+            document.getElementById('result').innerHTML = 
+                '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+        }
+    </script>
+</body>
+</html>
+
